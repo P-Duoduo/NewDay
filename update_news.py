@@ -3,13 +3,53 @@ import datetime
 import ssl
 import time
 import schedule
+from urllib.parse import urlparse
 
 # 解决 SSL 证书问题
 if hasattr(ssl, '_create_unverified_context'):
     ssl._create_default_https_context = ssl._create_unverified_context
 
+def get_source_name(url):
+    try:
+        domain = urlparse(url).netloc
+        if "zaobao" in domain:
+            return "联合早报"
+        elif "appinn" in domain:
+            return "小众软件"
+        elif "solidot" in domain:
+            return "Solidot"
+        elif "36kr" in domain:
+            return "36氪"
+        elif "douban" in domain:
+            return "豆瓣"
+        elif "chinanews" in domain:
+            return "中国新闻网"
+        elif "sina" in domain:
+            return "新浪新闻"
+        elif "bbc" in domain:
+            return "BBC"
+        elif "nytimes" in domain:
+            return "纽约时报"
+        elif "washingtonpost" in domain:
+            return "华盛顿邮报"
+        elif "reuters" in domain:
+            return "路透社"
+        elif "cnn" in domain:
+            return "CNN"
+        elif "cnbc" in domain:
+            return "CNBC"
+        elif "techcrunch" in domain:
+            return "TechCrunch"
+        elif "mashable" in domain:
+            return "Mashable"
+        elif "wired" in domain:
+            return "Wired"
+        else:
+            return domain.split('.')[1].capitalize()
+    except:
+        return "未知来源"
+
 def get_real_news():
-    # 大量稳定 RSS 新闻源
     sources = [
         # 中文
         "https://www.zaobao.com/rss/cs.html",
@@ -38,6 +78,7 @@ def get_real_news():
     for url in sources:
         try:
             feed = feedparser.parse(url)
+            source = get_source_name(url)
             for entry in feed.entries[:12]:
                 title = entry.title
                 link = entry.link
@@ -52,7 +93,12 @@ def get_real_news():
                 elif any(k in title for k in ["政治", "政策", "选举", "国会"]):
                     tag = "政治"
 
-                news_list.append({"t": title, "l": link, "g": tag})
+                news_list.append({
+                    "t": title,
+                    "l": link,
+                    "g": tag,
+                    "s": source
+                })
 
             if len(news_list) >= 40:
                 break
@@ -60,17 +106,17 @@ def get_real_news():
         except Exception:
             continue
 
-    # 兜底 Google News
+    # 兜底
     if not news_list:
         try:
             r = feedparser.parse("https://news.google.com/rss?hl=zh-CN&gl=CN&ceid=CN:zh-Hans")
             for entry in r.entries[:15]:
                 title = entry.title.split(' - ')[0]
-                news_list.append({"t": title, "l": entry.link, "g": "实时"})
+                news_list.append({"t": title, "l": entry.link, "g": "实时", "s": "Google News"})
         except Exception:
-            news_list = [{"t": "全球资讯同步中，请稍后...", "l": "#", "g": "系统"}]
+            news_list = [{"t": "全球资讯同步中，请稍后...", "l": "#", "g": "系统", "s": "系统"}]
 
-    # 🔴 关键：科技、金融放最前面，然后是其他
+    # 排序：科技、金融优先
     priority_order = {"科技": 0, "金融": 1, "综合": 2, "国际": 3, "政治": 4, "实时": 5, "系统": 6}
     news_list.sort(key=lambda x: priority_order.get(x["g"], 99))
 
@@ -84,7 +130,9 @@ def make_html(data):
     for n in data:
         items_html += f'''
         <div style="margin-bottom:30px; border-bottom:1px solid #f2f2f2; padding-bottom:15px;">
-            <div style="font-size:11px; color:#c5a059; font-weight:bold; margin-bottom:8px; letter-spacing:1px;">[{n['g']}]</div>
+            <div style="font-size:11px; color:#c5a059; font-weight:bold; margin-bottom:8px; letter-spacing:1px;">
+                [{n['g']}] • {n['s']}
+            </div>
             <a href="{n['l']}" target="_blank" style="color:#111; font-size:20px; line-height:1.5; font-weight:500; text-decoration:none;">{n['t']}</a>
         </div>'''
 
@@ -93,7 +141,7 @@ def make_html(data):
     <html>
     <head>
         <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width,initial-scale1.0">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
         <title>Global Briefing</title>
     </head>
     <body style="max-width:750px; margin:auto; padding:60px 20px; font-family:'Georgia', serif; background:#fdfdfd; color:#111;">
@@ -111,7 +159,6 @@ def make_html(data):
 
     print(f"✅ 新闻已更新：{time_str}")
 
-# 定时任务
 def job():
     news = get_real_news()
     make_html(news)
