@@ -1,19 +1,17 @@
-name: Update News Briefing
+name: Update News
 
 on:
   schedule:
-    - cron: '0 * * * *'  # 每小时整点运行
-  workflow_dispatch:     # 允许手动触发
+    - cron: '0 * * * *'
+  workflow_dispatch:
 
 jobs:
-  update:
+  build:
     runs-on: ubuntu-latest
     permissions:
-      contents: write  # 显式声明写权限
+      contents: write
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -22,16 +20,15 @@ jobs:
 
       - name: Install dependencies
         run: |
-          python -m pip install --upgrade pip
-          pip install feedparser schedule
+          pip install feedparser
 
       - name: Run script
-        run: python update_news.py  # 这里已经修正为正确的文件名
+        run: python update_news.py
 
-      - name: Commit and push changes
+      - name: Commit and push
         run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
+          git config --global user.name "github-actions"
+          git config --global user.email "action@github.com"
           git add index.html
-          git commit -m "Update news briefing $(date +'%Y-%m-%d %H:%M:%S')" || echo "No changes to commit"
+          git commit -m "Auto update news $(date +'%Y-%m-%d %H:%M')" || exit 0
           git push
