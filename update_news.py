@@ -1,33 +1,43 @@
 import requests
 import datetime
 
+import xml.etree.ElementTree as ET
+
 def get_real_news():
-    # 切换为更稳定的 RSS 数据源（例如：联合早报或路透社的公开源）
-    # 这里我们使用一个无需 API Key 的公开 RSS 转 JSON 接口
-    url = "https://api.rss2json.com"
+    # 使用 Google News 全球财经/科技 RSS 源（稳定性最高）
+    # ceid=CN:zh 确保获取的是中文资讯
+    url = "https://news.google.com"
     
     news_list = []
     try:
-        res = requests.get(url, timeout=10).json()
-        if res['status'] == 'ok':
-            for item in res['items'][:10]: # 取前 10 条
-                title = item['title']
-                description = item['description']
-                # 简单分类逻辑
-                tag = "国际"
-                if "AI" in title or "芯片" in title: tag = "AI科技"
-                elif "股" in title or "汇" in title or "经" in title: tag = "财经"
-                
-                # 提取时间
-                pub_time = item['pubDate'].split(' ')[1][:5]
-                news_list.append({"desc": title, "tag": tag, "time": pub_time})
-        else:
-            raise Exception("API status not ok")
+        # 添加浏览器 User-Agent 伪装，防止被拦截
+        headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'}
+        response = requests.get(url, headers=headers, timeout=15)
+        
+        # 解析 RSS (XML 格式)
+        root = ET.fromstring(response.content)
+        for item in root.findall('.//item')[:10]: # 取前 10 条
+            title = item.find('title').text
+            pub_date = item.find('pubDate').text
+            
+            # 简单分类逻辑
+            tag = "财经"
+            if any(k in title for k in ["AI", "智能", "芯片", "科技"]): tag = "AI科技"
+            elif any(k in title for k in ["美", "俄", "国际", "局势"]): tag = "国际"
+            
+            # 处理标题（去除来源后缀）
+            clean_title = title.split(' - ')[0]
+            
+            news_list.append({
+                "desc": clean_title, 
+                "tag": tag, 
+                "time": pub_date.split(' ')[4][:5] # 提取 HH:mm
+            })
     except Exception as e:
-        # 如果还是抓不到，至少显示一条带报错信息的提示
-        news_list = [{"desc": f"接口同步中，请稍后再次手动触发 Actions。({str(e)})", "tag": "系统", "time": "09:00"}]
+        news_list = [{"desc": f"系统正在自动修复中，请稍后再次手动运行。(Error: {str(e)})", "tag": "系统", "time": "09:00"}]
     
     return news_list
+
 
 
 def generate_html(data):
