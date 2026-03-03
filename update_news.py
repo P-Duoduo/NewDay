@@ -3,60 +3,53 @@ import datetime
 import re
 
 def get_real_news():
-    # 方案：直接抓取不需要 API 的大型中文媒体实时列表（如：路透社、WSJ、联合早报镜像）
     import random
-    
-    # 增加更多镜像地址，防止单一节点失效
-    sources = [
-        "https://rsshub.rssforever.com",
-        "https://rss.app", # 这是一个 AI 科技汇总源
-        "https://rsshub.moeyy.cn"
-    ]
+    # 直接搜索 Google News 的中文财经和 AI 资讯，这是目前最稳定的全球数据源
+    # hl=zh-CN 表示简体中文，gl=CN 表示中国区域资讯
+    url = "https://news.google.com"
     
     news_list = []
-    # 模拟真实浏览器，防止被拦截
-    user_agents = [
-        'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36',
-        'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36'
-    ]
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+        'Accept-Language': 'zh-CN,zh;q=0.9'
+    }
 
-    for url in sources:
-        try:
-            print(f"正在尝试抓取源: {url}")
-            response = requests.get(url, headers={'User-Agent': random.choice(user_agents)}, timeout=15)
+    try:
+        print(f"正在通过 Google News 引擎抓取实时资讯...")
+        response = requests.get(url, headers=headers, timeout=20)
+        
+        # 使用更稳健的正则匹配 Google News 的 XML 格式
+        # 匹配标题：<title>内容</title>
+        titles = re.findall(r'<title>(.*?)</title>', response.text)
+        # 匹配链接：<link>内容</link>
+        links = re.findall(r'<link>(.*?)</link>', response.text)
+
+        # Google News 的第一个标题通常是搜索词，从第二个开始取
+        for i in range(1, min(len(titles), 15)):
+            t_raw = titles[i]
+            # 过滤掉标题末尾的来源名（例如 " - 华尔街日报"）
+            t = t_raw.split(' - ')[0] 
+            l = links[i] if i < len(links) else "#"
             
-            # 使用更宽容的正则提取，兼容各种编码和格式
-            titles = re.findall(r'<title>(?:<!\[CDATA\[)?(.*?)(?:\]\]>)?</title>', response.text)
-            links = re.findall(r'<link>(?:<!\[CDATA\[)?(.*?)(?:\]\]>)?</link>', response.text)
+            # 智能给新闻贴标签
+            tag = "国际"
+            if any(k in t for k in ["AI", "芯片", "科技", "智能", "机器人", "大模型"]): tag = "AI科技"
+            elif any(k in t for k in ["股", "经", "财", "金", "美联储", "汇率", "市场"]): tag = "财经"
+            
+            # 排除掉包含 "Google News" 字符的干扰项
+            if "Google News" in t: continue
+            
+            news_list.append({"title": t, "link": l, "tag": tag})
+            
+        print(f"成功同步到 {len(news_list)} 条实时全球简报")
+            
+    except Exception as e:
+        print(f"抓取发生异常: {e}")
 
-            if len(titles) > 1:
-                # 跳过第一个标题（通常是网站名）
-                for i in range(1, min(len(titles), 10)):
-                    t = titles[i].replace('&amp;', '&').replace('&quot;', '"')
-                    l = links[i] if i < len(links) else "#"
-                    
-                    # 排除一些无意义的系统词汇
-                    if "RSS" in t or "Feed" in t or len(t) < 5: continue
-                    
-                    tag = "国际"
-                    if any(k in t for k in ["AI", "芯片", "科技", "智能"]): tag = "AI科技"
-                    elif any(k in t for k in ["股", "经", "财", "金", "美联储"]): tag = "财经"
-                    
-                    news_list.append({"title": t, "link": l, "tag": tag})
-                
-                if len(news_list) > 3: 
-                    print(f"成功从 {url} 抓取到 {len(news_list)} 条新闻")
-                    break 
-        except Exception as e:
-            print(f"源 {url} 抓取失败: {e}")
-            continue
-
-    # 如果所有在线源都挂了，展示今日全球财经预警（兜底内容，保证页面不空）
+    # 如果万一还是失败，保留你的兜底内容
     if not news_list:
         news_list = [
-            {"title": "美联储维持基准利率不变，暗示 2026 年底前或有两次降息", "link": "https://www.wsj.com", "tag": "财经"},
-            {"title": "OpenAI 推出全新大模型 Sora Pro，视频生成时长翻倍", "link": "https://openai.com", "tag": "AI科技"},
-            {"title": "国际局势观察：多国政要齐聚慕尼黑讨论数字化安全准则", "link": "https://www.reuters.com", "tag": "国际"}
+            {"title": "实时数据同步中，请尝试在 Actions 中手动 Run workflow", "link": "#", "tag": "系统"}
         ]
     return news_list
 
