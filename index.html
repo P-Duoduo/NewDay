@@ -5,19 +5,26 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>每日新闻简报</title>
 <style>
-.category-title { font-size: 24px; margin: 40px 0 20px; color: #333; border-left: 4px solid #c5a059; padding-left: 10px; }
-@media (max-width: 600px) {
-  nav a { margin: 0 8px; font-size: 12px; }
-  .category-title { font-size: 20px; }
+.category-title { font-size:22px; margin:40px 0 20px; color:#333; border-left:4px solid #c5a059; padding-left:12px; }
+@media (max-width:600px) {
+  nav a { margin:0 5px; font-size:12px; }
+  .category-title { font-size:18px; }
 }
 </style>
 </head>
-<body style="max-width: 800px; margin: auto; padding: 0 0 40px; font-family: 'Microsoft YaHei', sans-serif; background: #fdfdfd; color: #111;">
+<body style="max-width:800px; margin:auto; padding:0 0 40px; font-family:Microsoft YaHei, sans-serif; background:#fdfdfd; color:#111;">
 
-<div style="background:#1f2937; color:white; padding:8px 0; overflow:hidden; white-space:nowrap;">
-  <div style="display:inline-block; animation:scroll 30s linear infinite;">
-    黄金 2156.50美元 | 白银 24.80美元 | 原油 79.35美元 | 天然气 2.68 | 伦铜 8525 | 铝 2260 | 煤炭 128.5 | 螺纹钢 3680 | 纯碱 1950 | 甲醇 2430 | 尿素 2360
+<header style="text-align:center; margin:30px 20px 0; border-bottom:4px double #eee; padding-bottom:20px;">
+  <h1 style="font-size:36px; margin:0; color:#222;">每日新闻简报</h1>
+  <div style="color:#999; font-size:12px; margin-top:10px;">更新时间：2026-03-03 14:56:09</div>
+</header>
+
+
+<div style="background:#f8f9fa; border:1px solid #e9ecef; border-radius:8px; margin:20px 20px 30px; padding:10px 15px; overflow:hidden; white-space:nowrap;">
+  <div style="display:inline-block; animation:scroll 35s linear infinite; color:#222; font-size:14px;">
+    黄金(美元/盎司)：2156.50 | 白银(美元/盎司)：24.80 | 原油(美元/桶)：79.35 | 天然气(美元/MMBtu)：2.68 | 伦铜(美元/吨)：8525 | 铝(美元/吨)：2260 | 煤炭(美元/吨)：128.5 | 螺纹钢(元/吨)：3680 | 纯碱(元/吨)：1950 | 甲醇(元/吨)：2430 | 尿素(元/吨)：2360
   </div>
+  <div style="font-size:12px; color:#888; text-align:center; margin-top:5px;">数据来源：行情数据仅供参考，不构成投资建议</div>
 </div>
 <style>
 @keyframes scroll {
@@ -26,221 +33,291 @@
 }
 </style>
 
-<header style="text-align: center; margin:30px 20px 50px; border-bottom: 4px double #eee; padding-bottom: 20px;">
-  <h1 style="font-size: 36px; margin: 0; color: #222;">每日新闻简报</h1>
-  <div style="color: #999; font-size: 12px; margin-top: 10px;">更新时间：2026-03-03 14:43:21</div>
-</header>
 
-<nav style="text-align: center; margin-bottom: 40px; background: #f8f8f8; padding: 15px; border-radius: 8px;">
-  <a href="#tech" style="margin:0 12px; color:#c5a059; font-weight:bold; text-decoration:none; font-size:14px;">科技</a>
-  <a href="#finance" style="margin:0 12px; color:#c5a059; font-weight:bold; text-decoration:none; font-size:14px;">金融</a>
-  <a href="#politics" style="margin:0 12px; color:#c5a059; font-weight:bold; text-decoration:none; font-size:14px;">政治</a>
-  <a href="#general" style="margin:0 12px; color:#c5a059; font-weight:bold; text-decoration:none; font-size:14px;">综合</a>
+<nav style="text-align:center; margin-bottom:40px; background:#f8f8f8; padding:15px; border-radius:8px;">
+  <a href="#keji" style="margin:0 8px; color:#c5a059; font-weight:bold; text-decoration:none; font-size:14px;">科技</a>
+  <a href="#jinrong" style="margin:0 8px; color:#c5a059; font-weight:bold; text-decoration:none; font-size:14px;">金融</a>
+  <a href="#caijing" style="margin:0 8px; color:#c5a059; font-weight:bold; text-decoration:none; font-size:14px;">财经</a>
+  <a href="#zhengquan" style="margin:0 8px; color:#c5a059; font-weight:bold; text-decoration:none; font-size:14px;">证券</a>
+  <a href="#chanye" style="margin:0 8px; color:#c5a059; font-weight:bold; text-decoration:none; font-size:14px;">产业</a>
+  <a href="#fangdi" style="margin:0 8px; color:#c5a059; font-weight:bold; text-decoration:none; font-size:14px;">房地产</a>
+  <a href="#qiche" style="margin:0 8px; color:#c5a059; font-weight:bold; text-decoration:none; font-size:14px;">汽车</a>
+  <a href="#yiliao" style="margin:0 8px; color:#c5a059; font-weight:bold; text-decoration:none; font-size:14px;">医疗健康</a>
+  <a href="#jiaoyu" style="margin:0 8px; color:#c5a059; font-weight:bold; text-decoration:none; font-size:14px;">教育</a>
+  <a href="#nengyuan" style="margin:0 8px; color:#c5a059; font-weight:bold; text-decoration:none; font-size:14px;">能源</a>
+  <a href="#nongye" style="margin:0 8px; color:#c5a059; font-weight:bold; text-decoration:none; font-size:14px;">农业</a>
+  <a href="#shizheng" style="margin:0 8px; color:#c5a059; font-weight:bold; text-decoration:none; font-size:14px;">时政</a>
+  <a href="#zonghe" style="margin:0 8px; color:#c5a059; font-weight:bold; text-decoration:none; font-size:14px;">综合</a>
 </nav>
 
+
 <main style="padding:0 20px;">
-<section id="tech">
-<h2 class="category-title">科技</h2>
-
-<div style="margin-bottom: 25px; border-bottom: 1px solid #f2f2f2; padding-bottom: 12px;">
-  <div style="font-size: 11px; color: #999; margin-bottom: 5px;">中国新闻网 • </div>
-  <a href="https://www.chinanews.com.cn/cj/2026/03-03/10579913.shtml" target="_blank" style="color: #111; font-size: 18px; line-height: 1.5; font-weight: 500; text-decoration: none;">中国多地支持OPC社区孵化AI时代“一人公司”</a>
+<section id="keji"><h2 class="category-title">科技</h2>
+<div style="margin-bottom:25px; border-bottom:1px solid #f2f2f2; padding-bottom:12px;">
+  <div style="font-size:11px; color:#999; margin-bottom:5px;">中国新闻网 • </div>
+  <a href="https://www.chinanews.com.cn/cj/2026/03-03/10579913.shtml" target="_blank" style="color:#111; font-size:16px; line-height:1.6; font-weight:500; text-decoration:none;">中国多地支持OPC社区孵化AI时代“一人公司”</a>
 </div>
 
-<div style="margin-bottom: 25px; border-bottom: 1px solid #f2f2f2; padding-bottom: 12px;">
-  <div style="font-size: 11px; color: #999; margin-bottom: 5px;">中国新闻网 • </div>
-  <a href="https://www.chinanews.com.cn/cj/2026/03-03/10579841.shtml" target="_blank" style="color: #111; font-size: 18px; line-height: 1.5; font-weight: 500; text-decoration: none;">华为李鹏：5G-A x AI，参与加速迈入智能体互联网时代</a>
+<div style="margin-bottom:25px; border-bottom:1px solid #f2f2f2; padding-bottom:12px;">
+  <div style="font-size:11px; color:#999; margin-bottom:5px;">中国新闻网 • </div>
+  <a href="https://www.chinanews.com.cn/cj/2026/03-03/10579841.shtml" target="_blank" style="color:#111; font-size:16px; line-height:1.6; font-weight:500; text-decoration:none;">华为李鹏：5G-A x AI，参与加速迈入智能体互联网时代</a>
 </div>
 
-<div style="margin-bottom: 25px; border-bottom: 1px solid #f2f2f2; padding-bottom: 12px;">
-  <div style="font-size: 11px; color: #999; margin-bottom: 5px;">中国新闻网 • </div>
-  <a href="https://www.chinanews.com.cn/cj/2026/03-03/10579823.shtml" target="_blank" style="color: #111; font-size: 18px; line-height: 1.5; font-weight: 500; text-decoration: none;">华为全球助力运营商，释放5G能力，平滑向6G演进；深耕以AI为中心的网络三层注智，迈向全面自动化</a>
+<div style="margin-bottom:25px; border-bottom:1px solid #f2f2f2; padding-bottom:12px;">
+  <div style="font-size:11px; color:#999; margin-bottom:5px;">中国新闻网 • </div>
+  <a href="https://www.chinanews.com.cn/cj/2026/03-03/10579823.shtml" target="_blank" style="color:#111; font-size:16px; line-height:1.6; font-weight:500; text-decoration:none;">华为全球助力运营商，释放5G能力，平滑向6G演进；深耕以AI为中心的网络三层注智，迈向全面自动化</a>
 </div>
 
-<div style="margin-bottom: 25px; border-bottom: 1px solid #f2f2f2; padding-bottom: 12px;">
-  <div style="font-size: 11px; color: #999; margin-bottom: 5px;">CNBC • </div>
-  <a href="https://www.cnbc.com/2026/03/03/openai-sam-altman-pentagon-deal-amended-surveillance-limits.html" target="_blank" style="color: #111; font-size: 18px; line-height: 1.5; font-weight: 500; text-decoration: none;">OpenAI 的 Altman 承认，在强烈反对下，国防协议“看起来是机会主义且草率的”</a>
+<div style="margin-bottom:25px; border-bottom:1px solid #f2f2f2; padding-bottom:12px;">
+  <div style="font-size:11px; color:#999; margin-bottom:5px;">CNBC • </div>
+  <a href="https://www.cnbc.com/2026/03/03/openai-sam-altman-pentagon-deal-amended-surveillance-limits.html" target="_blank" style="color:#111; font-size:16px; line-height:1.6; font-weight:500; text-decoration:none;">OpenAI 的 Altman 承认，在强烈反对下，国防协议“看起来是机会主义且草率的”</a>
 </div>
 
-<div style="margin-bottom: 25px; border-bottom: 1px solid #f2f2f2; padding-bottom: 12px;">
-  <div style="font-size: 11px; color: #999; margin-bottom: 5px;">CNBC • Mon, 02 Mar 2026 17:11:03 GM</div>
-  <a href="https://www.cnbc.com/2026/03/02/apple-iphone-17e-ipad-air-m4-chip.html" target="_blank" style="color: #111; font-size: 18px; line-height: 1.5; font-weight: 500; text-decoration: none;">苹果推出成本更低的 iPhone 17e 和搭载 M4 芯片的新款 iPad Air</a>
+<div style="margin-bottom:25px; border-bottom:1px solid #f2f2f2; padding-bottom:12px;">
+  <div style="font-size:11px; color:#999; margin-bottom:5px;">CNBC • </div>
+  <a href="https://www.cnbc.com/2026/03/02/irans-internet-down-amid-reports-of-us-israel-cyberattacks.html" target="_blank" style="color:#111; font-size:16px; line-height:1.6; font-weight:500; text-decoration:none;">数字战线：伊朗互联网因网络攻击报告而瘫痪 60 多个小时</a>
 </div>
 
+<div style="margin-bottom:25px; border-bottom:1px solid #f2f2f2; padding-bottom:12px;">
+  <div style="font-size:11px; color:#999; margin-bottom:5px;">CNBC • Mon, 02 Mar 2026 17:11:03 GM</div>
+  <a href="https://www.cnbc.com/2026/03/02/apple-iphone-17e-ipad-air-m4-chip.html" target="_blank" style="color:#111; font-size:16px; line-height:1.6; font-weight:500; text-decoration:none;">苹果推出成本更低的 iPhone 17e 和搭载 M4 芯片的新款 iPad Air</a>
+</div>
 </section>
-
-<section id="finance">
-<h2 class="category-title">金融</h2>
-
-<div style="margin-bottom: 25px; border-bottom: 1px solid #f2f2f2; padding-bottom: 12px;">
-  <div style="font-size: 11px; color: #999; margin-bottom: 5px;">中国新闻网 • </div>
-  <a href="https://www.chinanews.com.cn/cj/2026/03-03/10579990.shtml" target="_blank" style="color: #111; font-size: 18px; line-height: 1.5; font-weight: 500; text-decoration: none;">中国稳定增长是世界经济稳定</a>
+<section id="jinrong"><h2 class="category-title">金融</h2><div style="color:#999;">暂无</div></section>
+<section id="caijing"><h2 class="category-title">财经</h2>
+<div style="margin-bottom:25px; border-bottom:1px solid #f2f2f2; padding-bottom:12px;">
+  <div style="font-size:11px; color:#999; margin-bottom:5px;">中国新闻网 • </div>
+  <a href="https://www.chinanews.com.cn/cj/2026/03-03/10579990.shtml" target="_blank" style="color:#111; font-size:16px; line-height:1.6; font-weight:500; text-decoration:none;">中国稳定增长是世界经济稳定</a>
 </div>
 
-<div style="margin-bottom: 25px; border-bottom: 1px solid #f2f2f2; padding-bottom: 12px;">
-  <div style="font-size: 11px; color: #999; margin-bottom: 5px;">中国新闻网 • </div>
-  <a href="https://www.chinanews.com.cn/cj/2026/03-03/10579887.shtml" target="_blank" style="color: #111; font-size: 18px; line-height: 1.5; font-weight: 500; text-decoration: none;">“三桶油”再爆发！石油基金LOF复牌涨停，原油期货强势</a>
+<div style="margin-bottom:25px; border-bottom:1px solid #f2f2f2; padding-bottom:12px;">
+  <div style="font-size:11px; color:#999; margin-bottom:5px;">CNBC • Mon, 02 Mar 2026 20:24:54 GM</div>
+  <a href="https://www.cnbc.com/2026/03/02/as-trump-declares-inflation-tamed-iran-conflict-threatens-new-price-pressures.html" target="_blank" style="color:#111; font-size:16px; line-height:1.6; font-weight:500; text-decoration:none;">随着特朗普宣布抑制通胀，伊朗冲突威胁新的价格压力</a>
 </div>
-
-<div style="margin-bottom: 25px; border-bottom: 1px solid #f2f2f2; padding-bottom: 12px;">
-  <div style="font-size: 11px; color: #999; margin-bottom: 5px;">CNBC • </div>
-  <a href="https://www.cnbc.com/2026/03/03/asia-markets-live-iran-oil-trump-nikkei-kospi-hang-seng.html" target="_blank" style="color: #111; font-size: 18px; line-height: 1.5; font-weight: 500; text-decoration: none;">由于伊朗冲突削弱市场情绪，韩国综合股价指数领跌亚洲股市；</a>
-</div>
-
-<div style="margin-bottom: 25px; border-bottom: 1px solid #f2f2f2; padding-bottom: 12px;">
-  <div style="font-size: 11px; color: #999; margin-bottom: 5px;">CNBC • Mon, 02 Mar 2026 16:08:51 GM</div>
-  <a href="https://www.cnbc.com/2026/03/02/steve-eisman-says-investors-should-ignore-us-iran-war-will-be-long-term-positive.html" target="_blank" style="color: #111; font-size: 18px; line-height: 1.5; font-weight: 500; text-decoration: none;">史蒂夫·艾斯曼表示投资者应该忽视美伊战争，这将是长期的“积极”</a>
-</div>
-
 </section>
-
-<section id="politics">
-<h2 class="category-title">政治</h2>
-
-<div style="margin-bottom: 25px; border-bottom: 1px solid #f2f2f2; padding-bottom: 12px;">
-  <div style="font-size: 11px; color: #999; margin-bottom: 5px;">CNBC • </div>
-  <a href="https://www.cnbc.com/2026/03/02/supreme-court-republican-new-york-malliotakis.html" target="_blank" style="color: #111; font-size: 18px; line-height: 1.5; font-weight: 500; text-decoration: none;">最高法院禁止在 2026 年选举中仅重新划定共和党控制的纽约市国会选区</a>
+<section id="zhengquan"><h2 class="category-title">证券</h2>
+<div style="margin-bottom:25px; border-bottom:1px solid #f2f2f2; padding-bottom:12px;">
+  <div style="font-size:11px; color:#999; margin-bottom:5px;">中国新闻网 • </div>
+  <a href="https://www.chinanews.com.cn/cj/2026/03-03/10579951.shtml" target="_blank" style="color:#111; font-size:16px; line-height:1.6; font-weight:500; text-decoration:none;">“三桶油”早盘全线涨停！军工股集体回调</a>
 </div>
 
+<div style="margin-bottom:25px; border-bottom:1px solid #f2f2f2; padding-bottom:12px;">
+  <div style="font-size:11px; color:#999; margin-bottom:5px;">中国新闻网 • </div>
+  <a href="https://www.chinanews.com.cn/cj/2026/03-03/10579906.shtml" target="_blank" style="color:#111; font-size:16px; line-height:1.6; font-weight:500; text-decoration:none;">A股午评：三大指数收跌，黄金板块回升，“三桶油”继续大涨</a>
+</div>
+
+<div style="margin-bottom:25px; border-bottom:1px solid #f2f2f2; padding-bottom:12px;">
+  <div style="font-size:11px; color:#999; margin-bottom:5px;">中国新闻网 • </div>
+  <a href="https://www.chinanews.com.cn/cj/2026/03-03/10579887.shtml" target="_blank" style="color:#111; font-size:16px; line-height:1.6; font-weight:500; text-decoration:none;">“三桶油”再爆发！石油基金LOF复牌涨停，原油期货强势</a>
+</div>
+
+<div style="margin-bottom:25px; border-bottom:1px solid #f2f2f2; padding-bottom:12px;">
+  <div style="font-size:11px; color:#999; margin-bottom:5px;">CNBC • </div>
+  <a href="https://www.cnbc.com/2026/03/03/asia-markets-live-iran-oil-trump-nikkei-kospi-hang-seng.html" target="_blank" style="color:#111; font-size:16px; line-height:1.6; font-weight:500; text-decoration:none;">由于伊朗冲突削弱市场情绪，韩国综合股价指数领跌亚洲股市；</a>
+</div>
 </section>
-
-<section id="general">
-<h2 class="category-title">综合</h2>
-
-<div style="margin-bottom: 25px; border-bottom: 1px solid #f2f2f2; padding-bottom: 12px;">
-  <div style="font-size: 11px; color: #999; margin-bottom: 5px;">中国新闻网 • </div>
-  <a href="https://www.chinanews.com.cn/cj/2026/03-03/10579984.shtml" target="_blank" style="color: #111; font-size: 18px; line-height: 1.5; font-weight: 500; text-decoration: none;">金价涨不动了？</a>
+<section id="chanye"><h2 class="category-title">产业</h2><div style="color:#999;">暂无</div></section>
+<section id="fangdi"><h2 class="category-title">房地产</h2><div style="color:#999;">暂无</div></section>
+<section id="qiche"><h2 class="category-title">汽车</h2>
+<div style="margin-bottom:25px; border-bottom:1px solid #f2f2f2; padding-bottom:12px;">
+  <div style="font-size:11px; color:#999; margin-bottom:5px;">中国新闻网 • </div>
+  <a href="https://www.chinanews.com.cn/auto/2025/12-18/10535954.shtml" target="_blank" style="color:#111; font-size:16px; line-height:1.6; font-weight:500; text-decoration:none;">“十五”汽车零配件和服务贸易发展潜力巨大</a>
 </div>
 
-<div style="margin-bottom: 25px; border-bottom: 1px solid #f2f2f2; padding-bottom: 12px;">
-  <div style="font-size: 11px; color: #999; margin-bottom: 5px;">中国新闻网 • </div>
-  <a href="https://www.chinanews.com.cn/cj/2026/03-03/10579946.shtml" target="_blank" style="color: #111; font-size: 18px; line-height: 1.5; font-weight: 500; text-decoration: none;">中消协：春节“抢票难”“民宿违约”等消费维权舆情凸显</a>
+<div style="margin-bottom:25px; border-bottom:1px solid #f2f2f2; padding-bottom:12px;">
+  <div style="font-size:11px; color:#999; margin-bottom:5px;">中国新闻网 • </div>
+  <a href="https://www.chinanews.com.cn/auto/2025/12-18/10535943.shtml" target="_blank" style="color:#111; font-size:16px; line-height:1.6; font-weight:500; text-decoration:none;">媒体谈汽车“价格战”：竞争不能是让赔钱变成常态</a>
 </div>
-
-<div style="margin-bottom: 25px; border-bottom: 1px solid #f2f2f2; padding-bottom: 12px;">
-  <div style="font-size: 11px; color: #999; margin-bottom: 5px;">中国新闻网 • </div>
-  <a href="https://www.chinanews.com.cn/cj/2026/03-03/10579951.shtml" target="_blank" style="color: #111; font-size: 18px; line-height: 1.5; font-weight: 500; text-decoration: none;">“三桶油”早盘全线涨停！军工股集体回调</a>
-</div>
-
-<div style="margin-bottom: 25px; border-bottom: 1px solid #f2f2f2; padding-bottom: 12px;">
-  <div style="font-size: 11px; color: #999; margin-bottom: 5px;">中国新闻网 • </div>
-  <a href="https://www.chinanews.com.cn/cj/2026/03-03/10579937.shtml" target="_blank" style="color: #111; font-size: 18px; line-height: 1.5; font-weight: 500; text-decoration: none;">国际假期2日大幅上涨</a>
-</div>
-
-<div style="margin-bottom: 25px; border-bottom: 1px solid #f2f2f2; padding-bottom: 12px;">
-  <div style="font-size: 11px; color: #999; margin-bottom: 5px;">中国新闻网 • </div>
-  <a href="https://www.chinanews.com.cn/cj/2026/03-03/10579906.shtml" target="_blank" style="color: #111; font-size: 18px; line-height: 1.5; font-weight: 500; text-decoration: none;">A股午评：三大指数收跌，黄金板块回升，“三桶油”继续大涨</a>
-</div>
-
-<div style="margin-bottom: 25px; border-bottom: 1px solid #f2f2f2; padding-bottom: 12px;">
-  <div style="font-size: 11px; color: #999; margin-bottom: 5px;">中国新闻网 • </div>
-  <a href="https://www.chinanews.com.cn/cj/2026/03-03/10579851.shtml" target="_blank" style="color: #111; font-size: 18px; line-height: 1.5; font-weight: 500; text-decoration: none;">广州珠江新城将再增高端商业地标计划3月底动工</a>
-</div>
-
-<div style="margin-bottom: 25px; border-bottom: 1px solid #f2f2f2; padding-bottom: 12px;">
-  <div style="font-size: 11px; color: #999; margin-bottom: 5px;">中国新闻网 • </div>
-  <a href="https://www.chinanews.com.cn/cj/2026/03-03/10579824.shtml" target="_blank" style="color: #111; font-size: 18px; line-height: 1.5; font-weight: 500; text-decoration: none;">数据显示外卖大战引发餐饮价格带来“不可逆下降”，八成商户大幅增加</a>
-</div>
-
-<div style="margin-bottom: 25px; border-bottom: 1px solid #f2f2f2; padding-bottom: 12px;">
-  <div style="font-size: 11px; color: #999; margin-bottom: 5px;">BBC • </div>
-  <a href="https://www.bbc.com/news/articles/cy4wgpdllleo?at_medium=RSS&at_campaign=rss" target="_blank" style="color: #111; font-size: 18px; line-height: 1.5; font-weight: 500; text-decoration: none;">克里斯·梅森：斯塔默与特朗普存在迄今为止最大的分歧</a>
-</div>
-
-<div style="margin-bottom: 25px; border-bottom: 1px solid #f2f2f2; padding-bottom: 12px;">
-  <div style="font-size: 11px; color: #999; margin-bottom: 5px;">BBC • </div>
-  <a href="https://www.bbc.com/news/videos/c3wlzn25yj9o?at_medium=RSS&at_campaign=rss" target="_blank" style="color: #111; font-size: 18px; line-height: 1.5; font-weight: 500; text-decoration: none;">德克萨斯州特朗普支持者对美国袭击伊朗的反应</a>
-</div>
-
-<div style="margin-bottom: 25px; border-bottom: 1px solid #f2f2f2; padding-bottom: 12px;">
-  <div style="font-size: 11px; color: #999; margin-bottom: 5px;">BBC • Mon, 02 Mar 2026 18:48:02 GM</div>
-  <a href="https://www.bbc.com/news/articles/c178z0p902vo?at_medium=RSS&at_campaign=rss" target="_blank" style="color: #111; font-size: 18px; line-height: 1.5; font-weight: 500; text-decoration: none;">杰里米·鲍文：三天过去了，我们仍然不知道这场战争将走向何方</a>
-</div>
-
-<div style="margin-bottom: 25px; border-bottom: 1px solid #f2f2f2; padding-bottom: 12px;">
-  <div style="font-size: 11px; color: #999; margin-bottom: 5px;">BBC • Mon, 02 Mar 2026 21:27:17 GM</div>
-  <a href="https://www.bbc.com/news/articles/cly8gqj9r6go?at_medium=RSS&at_campaign=rss" target="_blank" style="color: #111; font-size: 18px; line-height: 1.5; font-weight: 500; text-decoration: none;">夺取伊朗领导地位的战略背后是什么？</a>
-</div>
-
-<div style="margin-bottom: 25px; border-bottom: 1px solid #f2f2f2; padding-bottom: 12px;">
-  <div style="font-size: 11px; color: #999; margin-bottom: 5px;">BBC • Mon, 02 Mar 2026 18:55:18 GM</div>
-  <a href="https://www.bbc.com/news/articles/c4g0pnnj8xyo?at_medium=RSS&at_campaign=rss" target="_blank" style="color: #111; font-size: 18px; line-height: 1.5; font-weight: 500; text-decoration: none;">地图：横跨伊朗和中东的袭击</a>
-</div>
-
-<div style="margin-bottom: 25px; border-bottom: 1px solid #f2f2f2; padding-bottom: 12px;">
-  <div style="font-size: 11px; color: #999; margin-bottom: 5px;">BBC • </div>
-  <a href="https://www.bbc.com/news/articles/cdr2exyvyxpo?at_medium=RSS&at_campaign=rss" target="_blank" style="color: #111; font-size: 18px; line-height: 1.5; font-weight: 500; text-decoration: none;">大都会警察局长在莎拉·埃弗拉德周年纪念日上表示，我能理解为什么女性不信任警察</a>
-</div>
-
-<div style="margin-bottom: 25px; border-bottom: 1px solid #f2f2f2; padding-bottom: 12px;">
-  <div style="font-size: 11px; color: #999; margin-bottom: 5px;">BBC • </div>
-  <a href="https://www.bbc.com/news/articles/cy5706ep1l3o?at_medium=RSS&at_campaign=rss" target="_blank" style="color: #111; font-size: 18px; line-height: 1.5; font-weight: 500; text-decoration: none;">学校谈话将学生贷款与 30 英镑的电话合同进行比较，“具有严重误导性”</a>
-</div>
-
-<div style="margin-bottom: 25px; border-bottom: 1px solid #f2f2f2; padding-bottom: 12px;">
-  <div style="font-size: 11px; color: #999; margin-bottom: 5px;">BBC • Mon, 02 Mar 2026 18:47:45 GM</div>
-  <a href="https://www.bbc.com/news/articles/c05v0p1d0peo?at_medium=RSS&at_campaign=rss" target="_blank" style="color: #111; font-size: 18px; line-height: 1.5; font-weight: 500; text-decoration: none;">美国公司以 3300 万英镑收购 Brewdog，酒吧关门，数百人失业</a>
-</div>
-
-<div style="margin-bottom: 25px; border-bottom: 1px solid #f2f2f2; padding-bottom: 12px;">
-  <div style="font-size: 11px; color: #999; margin-bottom: 5px;">BBC • </div>
-  <a href="https://www.bbc.com/news/articles/c20zg7prz12o?at_medium=RSS&at_campaign=rss" target="_blank" style="color: #111; font-size: 18px; line-height: 1.5; font-weight: 500; text-decoration: none;">泄露的照片、热水浴缸和披萨门——克林顿夫妇关于爱泼斯坦关系的证词视频发布</a>
-</div>
-
-<div style="margin-bottom: 25px; border-bottom: 1px solid #f2f2f2; padding-bottom: 12px;">
-  <div style="font-size: 11px; color: #999; margin-bottom: 5px;">BBC • </div>
-  <a href="https://www.bbc.com/news/articles/c4g2jp6y630o?at_medium=RSS&at_campaign=rss" target="_blank" style="color: #111; font-size: 18px; line-height: 1.5; font-weight: 500; text-decoration: none;">英国最富有的人之一因对犹太人的“敌意”而希望获得德国公民身份</a>
-</div>
-
-<div style="margin-bottom: 25px; border-bottom: 1px solid #f2f2f2; padding-bottom: 12px;">
-  <div style="font-size: 11px; color: #999; margin-bottom: 5px;">BBC • </div>
-  <a href="https://www.bbc.com/news/articles/cg5ng0l35q7o?at_medium=RSS&at_campaign=rss" target="_blank" style="color: #111; font-size: 18px; line-height: 1.5; font-weight: 500; text-decoration: none;">梅拉尼娅·特朗普主持联合国安理会关于伊朗袭击中冲突儿童问题的会议</a>
-</div>
-
-<div style="margin-bottom: 25px; border-bottom: 1px solid #f2f2f2; padding-bottom: 12px;">
-  <div style="font-size: 11px; color: #999; margin-bottom: 5px;">BBC • </div>
-  <a href="https://www.bbc.com/news/articles/c20lz7rkqv4o?at_medium=RSS&at_campaign=rss" target="_blank" style="color: #111; font-size: 18px; line-height: 1.5; font-weight: 500; text-decoration: none;">“我已经放弃了酒店业的工作。 </a>
-</div>
-
-<div style="margin-bottom: 25px; border-bottom: 1px solid #f2f2f2; padding-bottom: 12px;">
-  <div style="font-size: 11px; color: #999; margin-bottom: 5px;">CNBC • </div>
-  <a href="https://www.cnbc.com/2026/03/03/strait-of-hormuz-closure-which-countries-will-be-hit-the-most.html" target="_blank" style="color: #111; font-size: 18px; line-height: 1.5; font-weight: 500; text-decoration: none;">霍尔木兹海峡面临封锁。</a>
-</div>
-
-<div style="margin-bottom: 25px; border-bottom: 1px solid #f2f2f2; padding-bottom: 12px;">
-  <div style="font-size: 11px; color: #999; margin-bottom: 5px;">CNBC • </div>
-  <a href="https://www.cnbc.com/2026/03/03/qualcomm-ceo-robotics-chips.html" target="_blank" style="color: #111; font-size: 18px; line-height: 1.5; font-weight: 500; text-decoration: none;">高通首席执行官将机器人视为两年内的“更大机遇”</a>
-</div>
-
-<div style="margin-bottom: 25px; border-bottom: 1px solid #f2f2f2; padding-bottom: 12px;">
-  <div style="font-size: 11px; color: #999; margin-bottom: 5px;">CNBC • </div>
-  <a href="https://www.cnbc.com/2026/03/02/amazon-says-drone-strikes-damaged-3-facilities-in-uae-and-bahrain.html" target="_blank" style="color: #111; font-size: 18px; line-height: 1.5; font-weight: 500; text-decoration: none;">亚马逊称无人机袭击损坏了阿联酋和巴林的 3 个设施</a>
-</div>
-
-<div style="margin-bottom: 25px; border-bottom: 1px solid #f2f2f2; padding-bottom: 12px;">
-  <div style="font-size: 11px; color: #999; margin-bottom: 5px;">CNBC • </div>
-  <a href="https://www.cnbc.com/2026/03/03/south-korea-defense-stocks-soar-hanwha-aerospace-iran-us-israel-war.html" target="_blank" style="color: #111; font-size: 18px; line-height: 1.5; font-weight: 500; text-decoration: none;">交易员对伊朗战争做出反应，韩国国防股飙升，权重股韩华航空航天股价飙升 25%</a>
-</div>
-
-<div style="margin-bottom: 25px; border-bottom: 1px solid #f2f2f2; padding-bottom: 12px;">
-  <div style="font-size: 11px; color: #999; margin-bottom: 5px;">CNBC • Mon, 02 Mar 2026 17:49:13 GM</div>
-  <a href="https://www.cnbc.com/2026/03/02/strait-of-hormuz-crisis-us-iran-israel-war-shipping-trade-oil.html" target="_blank" style="color: #111; font-size: 18px; line-height: 1.5; font-weight: 500; text-decoration: none;">霍尔木兹海峡危机解释：这对全球航运意味着什么</a>
-</div>
-
-<div style="margin-bottom: 25px; border-bottom: 1px solid #f2f2f2; padding-bottom: 12px;">
-  <div style="font-size: 11px; color: #999; margin-bottom: 5px;">CNBC • </div>
-  <a href="https://www.cnbc.com/2026/03/02/middle-east-flights.html" target="_blank" style="color: #111; font-size: 18px; line-height: 1.5; font-weight: 500; text-decoration: none;">伊朗袭击后首架航班从迪拜起飞，但服务“有限”</a>
-</div>
-
-<div style="margin-bottom: 25px; border-bottom: 1px solid #f2f2f2; padding-bottom: 12px;">
-  <div style="font-size: 11px; color: #999; margin-bottom: 5px;">CNBC • Mon, 02 Mar 2026 20:24:54 GM</div>
-  <a href="https://www.cnbc.com/2026/03/02/as-trump-declares-inflation-tamed-iran-conflict-threatens-new-price-pressures.html" target="_blank" style="color: #111; font-size: 18px; line-height: 1.5; font-weight: 500; text-decoration: none;">随着特朗普宣布抑制通胀，伊朗冲突威胁新的价格压力</a>
-</div>
-
 </section>
+<section id="yiliao"><h2 class="category-title">医疗健康</h2>
+<div style="margin-bottom:25px; border-bottom:1px solid #f2f2f2; padding-bottom:12px;">
+  <div style="font-size:11px; color:#999; margin-bottom:5px;">中国新闻网 • Mon, 2 Mar 2026 09:44:23 +0800</div>
+  <a href="https://www.chinanews.com.cn/jk/2026/03-02/10579109.shtml" target="_blank" style="color:#111; font-size:16px; line-height:1.6; font-weight:500; text-decoration:none;">开学季，这些健康风险需重点防范→</a>
+</div>
 
+<div style="margin-bottom:25px; border-bottom:1px solid #f2f2f2; padding-bottom:12px;">
+  <div style="font-size:11px; color:#999; margin-bottom:5px;">中国新闻网 • Sun, 1 Mar 2026 15:44:26 +0800</div>
+  <a href="https://www.chinanews.com.cn/jk/2026/03-01/10578753.shtml" target="_blank" style="color:#111; font-size:16px; line-height:1.6; font-weight:500; text-decoration:none;">美甲可能会抢救这些指甲上的“健康警报”你了解吗？</a>
+</div>
+</section>
+<section id="jiaoyu"><h2 class="category-title">教育</h2>
+<div style="margin-bottom:25px; border-bottom:1px solid #f2f2f2; padding-bottom:12px;">
+  <div style="font-size:11px; color:#999; margin-bottom:5px;">BBC • </div>
+  <a href="https://www.bbc.com/news/articles/cy5706ep1l3o?at_medium=RSS&at_campaign=rss" target="_blank" style="color:#111; font-size:16px; line-height:1.6; font-weight:500; text-decoration:none;">学校谈话将学生贷款与 30 英镑的电话合同进行比较，“具有严重误导性”</a>
+</div>
+</section>
+<section id="nengyuan"><h2 class="category-title">能源</h2><div style="color:#999;">暂无</div></section>
+<section id="nongye"><h2 class="category-title">农业</h2><div style="color:#999;">暂无</div></section>
+<section id="shizheng"><h2 class="category-title">时政</h2><div style="color:#999;">暂无</div></section>
+<section id="zonghe"><h2 class="category-title">综合</h2>
+<div style="margin-bottom:25px; border-bottom:1px solid #f2f2f2; padding-bottom:12px;">
+  <div style="font-size:11px; color:#999; margin-bottom:5px;">中国新闻网 • </div>
+  <a href="https://www.chinanews.com.cn/cj/2026/03-03/10579984.shtml" target="_blank" style="color:#111; font-size:16px; line-height:1.6; font-weight:500; text-decoration:none;">金价涨不动了？</a>
+</div>
+
+<div style="margin-bottom:25px; border-bottom:1px solid #f2f2f2; padding-bottom:12px;">
+  <div style="font-size:11px; color:#999; margin-bottom:5px;">中国新闻网 • </div>
+  <a href="https://www.chinanews.com.cn/cj/2026/03-03/10579946.shtml" target="_blank" style="color:#111; font-size:16px; line-height:1.6; font-weight:500; text-decoration:none;">中消协：春节“抢票难”“民宿违约”等消费维权舆情凸显</a>
+</div>
+
+<div style="margin-bottom:25px; border-bottom:1px solid #f2f2f2; padding-bottom:12px;">
+  <div style="font-size:11px; color:#999; margin-bottom:5px;">中国新闻网 • </div>
+  <a href="https://www.chinanews.com.cn/cj/2026/03-03/10579937.shtml" target="_blank" style="color:#111; font-size:16px; line-height:1.6; font-weight:500; text-decoration:none;">国际假期2日大幅上涨</a>
+</div>
+
+<div style="margin-bottom:25px; border-bottom:1px solid #f2f2f2; padding-bottom:12px;">
+  <div style="font-size:11px; color:#999; margin-bottom:5px;">中国新闻网 • </div>
+  <a href="https://www.chinanews.com.cn/cj/2026/03-03/10579851.shtml" target="_blank" style="color:#111; font-size:16px; line-height:1.6; font-weight:500; text-decoration:none;">广州珠江新城将再增高端商业地标计划3月底动工</a>
+</div>
+
+<div style="margin-bottom:25px; border-bottom:1px solid #f2f2f2; padding-bottom:12px;">
+  <div style="font-size:11px; color:#999; margin-bottom:5px;">中国新闻网 • </div>
+  <a href="https://www.chinanews.com.cn/cj/2026/03-03/10579824.shtml" target="_blank" style="color:#111; font-size:16px; line-height:1.6; font-weight:500; text-decoration:none;">数据显示外卖大战引发餐饮价格带来“不可逆下降”，八成商户大幅增加</a>
+</div>
+
+<div style="margin-bottom:25px; border-bottom:1px solid #f2f2f2; padding-bottom:12px;">
+  <div style="font-size:11px; color:#999; margin-bottom:5px;">中国新闻网 • </div>
+  <a href="https://www.chinanews.com.cn/jk/2026/03-03/10579967.shtml" target="_blank" style="color:#111; font-size:16px; line-height:1.6; font-weight:500; text-decoration:none;">全国爱耳日 | </a>
+</div>
+
+<div style="margin-bottom:25px; border-bottom:1px solid #f2f2f2; padding-bottom:12px;">
+  <div style="font-size:11px; color:#999; margin-bottom:5px;">中国新闻网 • </div>
+  <a href="https://www.chinanews.com.cn/jk/2026/03-03/10579903.shtml" target="_blank" style="color:#111; font-size:16px; line-height:1.6; font-weight:500; text-decoration:none;">（全国两会）全国人民代表于金明：向肿瘤“慢性病”转变成为可能</a>
+</div>
+
+<div style="margin-bottom:25px; border-bottom:1px solid #f2f2f2; padding-bottom:12px;">
+  <div style="font-size:11px; color:#999; margin-bottom:5px;">中国新闻网 • </div>
+  <a href="https://www.chinanews.com.cn/jk/2026/03-03/10579860.shtml" target="_blank" style="color:#111; font-size:16px; line-height:1.6; font-weight:500; text-decoration:none;">三个大脑喊救命时会发布警报</a>
+</div>
+
+<div style="margin-bottom:25px; border-bottom:1px solid #f2f2f2; padding-bottom:12px;">
+  <div style="font-size:11px; color:#999; margin-bottom:5px;">中国新闻网 • </div>
+  <a href="https://www.chinanews.com.cn/jk/2026/03-03/10579783.shtml" target="_blank" style="color:#111; font-size:16px; line-height:1.6; font-weight:500; text-decoration:none;">每天坚持5分钟，学做自己的“护耳师”</a>
+</div>
+
+<div style="margin-bottom:25px; border-bottom:1px solid #f2f2f2; padding-bottom:12px;">
+  <div style="font-size:11px; color:#999; margin-bottom:5px;">中国新闻网 • </div>
+  <a href="https://www.chinanews.com.cn/jk/2026/03-03/10579768.shtml" target="_blank" style="color:#111; font-size:16px; line-height:1.6; font-weight:500; text-decoration:none;">耳鸣可能是身体上的“求助信号”！ 提示这些疾病</a>
+</div>
+
+<div style="margin-bottom:25px; border-bottom:1px solid #f2f2f2; padding-bottom:12px;">
+  <div style="font-size:11px; color:#999; margin-bottom:5px;">中国新闻网 • </div>
+  <a href="https://www.chinanews.com.cn/jk/2026/03-03/10579758.shtml" target="_blank" style="color:#111; font-size:16px; line-height:1.6; font-weight:500; text-decoration:none;">哪些坏习惯正在损害你的听力？专家支招提早干预</a>
+</div>
+
+<div style="margin-bottom:25px; border-bottom:1px solid #f2f2f2; padding-bottom:12px;">
+  <div style="font-size:11px; color:#999; margin-bottom:5px;">中国新闻网 • </div>
+  <a href="https://www.chinanews.com.cn/jk/2026/03-03/10579737.shtml" target="_blank" style="color:#111; font-size:16px; line-height:1.6; font-weight:500; text-decoration:none;">“养生汤圆”到底养生不养生？</a>
+</div>
+
+<div style="margin-bottom:25px; border-bottom:1px solid #f2f2f2; padding-bottom:12px;">
+  <div style="font-size:11px; color:#999; margin-bottom:5px;">中国新闻网 • </div>
+  <a href="https://www.chinanews.com.cn/jk/2026/03-03/10579720.shtml" target="_blank" style="color:#111; font-size:16px; line-height:1.6; font-weight:500; text-decoration:none;">头晕手麻不是小事 黎明“沉默的杀手”</a>
+</div>
+
+<div style="margin-bottom:25px; border-bottom:1px solid #f2f2f2; padding-bottom:12px;">
+  <div style="font-size:11px; color:#999; margin-bottom:5px;">中国新闻网 • Mon, 2 Mar 2026 09:54:21 +0800</div>
+  <a href="https://www.chinanews.com.cn/jk/2026/03-02/10579135.shtml" target="_blank" style="color:#111; font-size:16px; line-height:1.6; font-weight:500; text-decoration:none;">身体出现这5个变化要重视科学控糖指南请查收</a>
+</div>
+
+<div style="margin-bottom:25px; border-bottom:1px solid #f2f2f2; padding-bottom:12px;">
+  <div style="font-size:11px; color:#999; margin-bottom:5px;">中国新闻网 • Sun, 1 Mar 2026 09:45:37 +0800</div>
+  <a href="https://www.chinanews.com.cn/jk/2026/03-01/10578607.shtml" target="_blank" style="color:#111; font-size:16px; line-height:1.6; font-weight:500; text-decoration:none;">扔掉了可惜被毁掉的果实烂了一半到底还能吃吗？</a>
+</div>
+
+<div style="margin-bottom:25px; border-bottom:1px solid #f2f2f2; padding-bottom:12px;">
+  <div style="font-size:11px; color:#999; margin-bottom:5px;">BBC • </div>
+  <a href="https://www.bbc.com/news/articles/cy4wgpdllleo?at_medium=RSS&at_campaign=rss" target="_blank" style="color:#111; font-size:16px; line-height:1.6; font-weight:500; text-decoration:none;">克里斯·梅森：斯塔默与特朗普存在迄今为止最大的分歧</a>
+</div>
+
+<div style="margin-bottom:25px; border-bottom:1px solid #f2f2f2; padding-bottom:12px;">
+  <div style="font-size:11px; color:#999; margin-bottom:5px;">BBC • </div>
+  <a href="https://www.bbc.com/news/videos/c3wlzn25yj9o?at_medium=RSS&at_campaign=rss" target="_blank" style="color:#111; font-size:16px; line-height:1.6; font-weight:500; text-decoration:none;">德克萨斯州特朗普支持者对美国袭击伊朗的反应</a>
+</div>
+
+<div style="margin-bottom:25px; border-bottom:1px solid #f2f2f2; padding-bottom:12px;">
+  <div style="font-size:11px; color:#999; margin-bottom:5px;">BBC • Mon, 02 Mar 2026 18:48:02 GM</div>
+  <a href="https://www.bbc.com/news/articles/c178z0p902vo?at_medium=RSS&at_campaign=rss" target="_blank" style="color:#111; font-size:16px; line-height:1.6; font-weight:500; text-decoration:none;">杰里米·鲍文：三天过去了，我们仍然不知道这场战争将走向何方</a>
+</div>
+
+<div style="margin-bottom:25px; border-bottom:1px solid #f2f2f2; padding-bottom:12px;">
+  <div style="font-size:11px; color:#999; margin-bottom:5px;">BBC • Mon, 02 Mar 2026 21:27:17 GM</div>
+  <a href="https://www.bbc.com/news/articles/cly8gqj9r6go?at_medium=RSS&at_campaign=rss" target="_blank" style="color:#111; font-size:16px; line-height:1.6; font-weight:500; text-decoration:none;">夺取伊朗领导地位的战略背后是什么？</a>
+</div>
+
+<div style="margin-bottom:25px; border-bottom:1px solid #f2f2f2; padding-bottom:12px;">
+  <div style="font-size:11px; color:#999; margin-bottom:5px;">BBC • Mon, 02 Mar 2026 18:55:18 GM</div>
+  <a href="https://www.bbc.com/news/articles/c4g0pnnj8xyo?at_medium=RSS&at_campaign=rss" target="_blank" style="color:#111; font-size:16px; line-height:1.6; font-weight:500; text-decoration:none;">地图：横跨伊朗和中东的袭击</a>
+</div>
+
+<div style="margin-bottom:25px; border-bottom:1px solid #f2f2f2; padding-bottom:12px;">
+  <div style="font-size:11px; color:#999; margin-bottom:5px;">BBC • </div>
+  <a href="https://www.bbc.com/news/articles/cdr2exyvyxpo?at_medium=RSS&at_campaign=rss" target="_blank" style="color:#111; font-size:16px; line-height:1.6; font-weight:500; text-decoration:none;">大都会警察局长在莎拉·埃弗拉德周年纪念日上表示，我能理解为什么女性不信任警察</a>
+</div>
+
+<div style="margin-bottom:25px; border-bottom:1px solid #f2f2f2; padding-bottom:12px;">
+  <div style="font-size:11px; color:#999; margin-bottom:5px;">BBC • Mon, 02 Mar 2026 18:47:45 GM</div>
+  <a href="https://www.bbc.com/news/articles/c05v0p1d0peo?at_medium=RSS&at_campaign=rss" target="_blank" style="color:#111; font-size:16px; line-height:1.6; font-weight:500; text-decoration:none;">美国公司以 3300 万英镑收购 Brewdog，酒吧关门，数百人失业</a>
+</div>
+
+<div style="margin-bottom:25px; border-bottom:1px solid #f2f2f2; padding-bottom:12px;">
+  <div style="font-size:11px; color:#999; margin-bottom:5px;">BBC • </div>
+  <a href="https://www.bbc.com/news/articles/c20zg7prz12o?at_medium=RSS&at_campaign=rss" target="_blank" style="color:#111; font-size:16px; line-height:1.6; font-weight:500; text-decoration:none;">泄露的照片、热水浴缸和披萨门——克林顿夫妇关于爱泼斯坦关系的证词视频发布</a>
+</div>
+
+<div style="margin-bottom:25px; border-bottom:1px solid #f2f2f2; padding-bottom:12px;">
+  <div style="font-size:11px; color:#999; margin-bottom:5px;">BBC • </div>
+  <a href="https://www.bbc.com/news/articles/c4g2jp6y630o?at_medium=RSS&at_campaign=rss" target="_blank" style="color:#111; font-size:16px; line-height:1.6; font-weight:500; text-decoration:none;">英国最富有的人之一因对犹太人的“敌意”而希望获得德国公民身份</a>
+</div>
+
+<div style="margin-bottom:25px; border-bottom:1px solid #f2f2f2; padding-bottom:12px;">
+  <div style="font-size:11px; color:#999; margin-bottom:5px;">BBC • Mon, 02 Mar 2026 13:12:38 GM</div>
+  <a href="https://www.bbc.com/news/articles/c5yv255914xo?at_medium=RSS&at_campaign=rss" target="_blank" style="color:#111; font-size:16px; line-height:1.6; font-weight:500; text-decoration:none;">对于雷切尔·里夫斯来说，在另一个关键的日子里，她在春季声明中可能会说些什么？</a>
+</div>
+
+<div style="margin-bottom:25px; border-bottom:1px solid #f2f2f2; padding-bottom:12px;">
+  <div style="font-size:11px; color:#999; margin-bottom:5px;">BBC • </div>
+  <a href="https://www.bbc.com/news/articles/c20lz7rkqv4o?at_medium=RSS&at_campaign=rss" target="_blank" style="color:#111; font-size:16px; line-height:1.6; font-weight:500; text-decoration:none;">“我已经放弃了酒店业的工作。 </a>
+</div>
+
+<div style="margin-bottom:25px; border-bottom:1px solid #f2f2f2; padding-bottom:12px;">
+  <div style="font-size:11px; color:#999; margin-bottom:5px;">CNBC • </div>
+  <a href="https://www.cnbc.com/2026/03/03/strait-of-hormuz-closure-which-countries-will-be-hit-the-most.html" target="_blank" style="color:#111; font-size:16px; line-height:1.6; font-weight:500; text-decoration:none;">霍尔木兹海峡面临封锁。</a>
+</div>
+
+<div style="margin-bottom:25px; border-bottom:1px solid #f2f2f2; padding-bottom:12px;">
+  <div style="font-size:11px; color:#999; margin-bottom:5px;">CNBC • </div>
+  <a href="https://www.cnbc.com/2026/03/03/qualcomm-ceo-robotics-chips.html" target="_blank" style="color:#111; font-size:16px; line-height:1.6; font-weight:500; text-decoration:none;">高通首席执行官将机器人视为两年内的“更大机遇”</a>
+</div>
+
+<div style="margin-bottom:25px; border-bottom:1px solid #f2f2f2; padding-bottom:12px;">
+  <div style="font-size:11px; color:#999; margin-bottom:5px;">CNBC • </div>
+  <a href="https://www.cnbc.com/2026/03/02/amazon-says-drone-strikes-damaged-3-facilities-in-uae-and-bahrain.html" target="_blank" style="color:#111; font-size:16px; line-height:1.6; font-weight:500; text-decoration:none;">亚马逊称无人机袭击损坏了阿联酋和巴林的 3 个设施</a>
+</div>
+
+<div style="margin-bottom:25px; border-bottom:1px solid #f2f2f2; padding-bottom:12px;">
+  <div style="font-size:11px; color:#999; margin-bottom:5px;">CNBC • </div>
+  <a href="https://www.cnbc.com/2026/03/03/south-korea-defense-stocks-soar-hanwha-aerospace-iran-us-israel-war.html" target="_blank" style="color:#111; font-size:16px; line-height:1.6; font-weight:500; text-decoration:none;">交易员对伊朗战争做出反应，韩国国防股飙升，权重股韩华航空航天股价飙升 25%</a>
+</div>
+
+<div style="margin-bottom:25px; border-bottom:1px solid #f2f2f2; padding-bottom:12px;">
+  <div style="font-size:11px; color:#999; margin-bottom:5px;">CNBC • Mon, 02 Mar 2026 17:49:13 GM</div>
+  <a href="https://www.cnbc.com/2026/03/02/strait-of-hormuz-crisis-us-iran-israel-war-shipping-trade-oil.html" target="_blank" style="color:#111; font-size:16px; line-height:1.6; font-weight:500; text-decoration:none;">霍尔木兹海峡危机解释：这对全球航运意味着什么</a>
+</div>
+
+<div style="margin-bottom:25px; border-bottom:1px solid #f2f2f2; padding-bottom:12px;">
+  <div style="font-size:11px; color:#999; margin-bottom:5px;">CNBC • </div>
+  <a href="https://www.cnbc.com/2026/03/02/middle-east-flights.html" target="_blank" style="color:#111; font-size:16px; line-height:1.6; font-weight:500; text-decoration:none;">伊朗袭击后首架航班从迪拜起飞，但服务“有限”</a>
+</div>
+
+<div style="margin-bottom:25px; border-bottom:1px solid #f2f2f2; padding-bottom:12px;">
+  <div style="font-size:11px; color:#999; margin-bottom:5px;">CNBC • </div>
+  <a href="https://www.cnbc.com/2026/03/02/supreme-court-republican-new-york-malliotakis.html" target="_blank" style="color:#111; font-size:16px; line-height:1.6; font-weight:500; text-decoration:none;">最高法院禁止在 2026 年选举中仅重新划定共和党控制的纽约市国会选区</a>
+</div>
+</section>
 </main>
-<footer style="text-align: center; margin-top: 80px; color: #ccc; font-size: 12px; padding: 20px;">
+
+<footer style="text-align:center; margin-top:80px; color:#ccc; font-size:12px; padding:20px;">
 每小时自动更新
 </footer>
 </body>
