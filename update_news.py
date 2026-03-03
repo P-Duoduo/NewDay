@@ -36,7 +36,6 @@ def get_source_name(url):
             "caixin": "财新网",
             "yicai": "第一财经",
             "jiemian": "界面新闻",
-            "tech": "科技媒体",
             "reuters": "路透社",
             "bbc": "BBC",
             "cnn": "CNN",
@@ -50,12 +49,19 @@ def get_source_name(url):
     except:
         return "新闻"
 
-# 只保留 GitHub 能稳定抓到的国内源
+# 判断是否国内来源
+def is_chinese_source(source):
+    cn_sources = [
+        "中国新闻网", "新浪新闻", "凤凰新闻", "腾讯新闻",
+        "网易新闻", "澎湃新闻", "财新网", "第一财经",
+        "界面新闻", "联合早报"
+    ]
+    return any(s in source for s in cn_sources)
+
+# 新闻源
 def get_news_sources():
     return [
-        # 国内稳定可用
         "https://www.chinanews.com/rss/news.xml",
-        "https://www.chinanews.com/rss/world-us.xml",
         "https://www.chinanews.com/rss/finance.xml",
         "https://www.chinanews.com/rss/tech.xml",
         "https://www.zaobao.com/rss/cs.html",
@@ -64,23 +70,18 @@ def get_news_sources():
         "https://news.ifeng.com/rss/world.xml",
         "https://news.ifeng.com/rss/finance.xml",
         "https://news.ifeng.com/rss/tech.xml",
-
-        # 国外
-        "https://feeds.bbci.co.uk/news/world/us_and_canada/rss.xml",
-        "https://www.reuters.com/rssFeed/usNews",
+        "https://feeds.bbci.co.uk/news/rss.xml",
+        "https://www.reuters.com/rssFeed/worldNews",
         "https://www.reuters.com/rssFeed/businessNews",
         "https://www.reuters.com/rssFeed/technologyNews",
-        "https://www.cnn.com/services/rss/rss_us.rss",
+        "https://www.cnn.com/services/rss/rss_topstories.rss",
         "https://www.cnbc.com/id/100003114/device/rss/rss.html",
     ]
 
 # 抓取新闻
 def get_real_news():
     sources = get_news_sources()
-    news_list = []
-    chinese_us = []
-    english_us = []
-    other = []
+    all_news = []
 
     for url in sources:
         try:
@@ -96,65 +97,67 @@ def get_real_news():
                     tag = "科技"
                 elif any(k in title for k in ["财经", "股市", "金融", "经济", "投资", "基金", "汇率"]):
                     tag = "金融"
-                elif any(k in title for k in ["美国", "白宫", "华盛顿", "纽约", "加州"]):
-                    tag = "美国"
-                elif any(k in title for k in ["中国", "国内", "大陆", "内地"]):
-                    tag = "国内"
-                elif any(k in title for k in ["国际", "欧洲", "日本", "海外"]):
-                    tag = "国际"
-                elif any(k in title for k in ["政治", "政策", "选举", "国会"]):
+                elif any(k in title for k in ["政治", "政策", "选举", "国会", "政府"]):
                     tag = "政治"
-
-                item = {"t": title, "l": link, "g": tag, "s": source, "d": pub}
-
-                if tag == "美国":
-                    if source in ["中国新闻网", "联合早报", "凤凰新闻"]:
-                        chinese_us.append(item)
-                    else:
-                        english_us.append(item)
                 else:
-                    other.append(item)
+                    tag = "综合"
+
+                all_news.append({
+                    "t": title,
+                    "l": link,
+                    "g": tag,
+                    "s": source,
+                    "d": pub,
+                    "cn": is_chinese_source(source)
+                })
         except:
             continue
 
-    final = []
-    final.extend([i for i in other if i["g"] == "国内"])
-    final.extend([i for i in other if i["g"] == "科技"])
-    final.extend([i for i in other if i["g"] == "金融"])
-    final.extend(chinese_us)
-    final.extend(english_us)
-    final.extend([i for i in other if i["g"] not in ["国内", "科技", "金融", "美国"]])
-
+    # 去重
     seen = set()
-    out = []
-    for x in final:
-        if x["t"] not in seen and len(x["t"]) > 5:
-            seen.add(x["t"])
-            out.append(x)
-    return out[:70]
+    news_clean = []
+    for n in all_news:
+        if n["t"] not in seen and len(n["t"]) > 5:
+            seen.add(n["t"])
+            news_clean.append(n)
+
+    # 同类下：国内来源排前面
+    news_clean.sort(key=lambda x: (x["g"], 0 if x["cn"] else 1))
+    return news_clean[:70]
 
 # 生成 HTML
 def make_html(data):
     now = datetime.datetime.utcnow() + datetime.timedelta(hours=8)
     time_str = now.strftime('%Y-%m-%d %H:%M:%S')
 
+    # 滚动行情条
+    ticker = '''
+<div style="background:#1f2937; color:white; padding:8px 0; overflow:hidden; white-space:nowrap;">
+  <div style="display:inline-block; animation:scroll 30s linear infinite;">
+    黄金 2156.50美元 | 白银 24.80美元 | 原油 79.35美元 | 天然气 2.68 | 伦铜 8525 | 铝 2260 | 煤炭 128.5 | 螺纹钢 3680 | 纯碱 1950 | 甲醇 2430 | 尿素 2360
+  </div>
+</div>
+<style>
+@keyframes scroll {
+  0% { transform:translateX(100%); }
+  100% { transform:translateX(-100%); }
+}
+</style>
+'''
+
     nav = '''
 <nav style="text-align: center; margin-bottom: 40px; background: #f8f8f8; padding: 15px; border-radius: 8px;">
-  <a href="#china" style="margin:0 12px; color:#c5a059; font-weight:bold; text-decoration:none; font-size:14px;">国内</a>
   <a href="#tech" style="margin:0 12px; color:#c5a059; font-weight:bold; text-decoration:none; font-size:14px;">科技</a>
   <a href="#finance" style="margin:0 12px; color:#c5a059; font-weight:bold; text-decoration:none; font-size:14px;">金融</a>
-  <a href="#us" style="margin:0 12px; color:#c5a059; font-weight:bold; text-decoration:none; font-size:14px;">美国</a>
-  <a href="#international" style="margin:0 12px; color:#c5a059; font-weight:bold; text-decoration:none; font-size:14px;">国际</a>
+  <a href="#politics" style="margin:0 12px; color:#c5a059; font-weight:bold; text-decoration:none; font-size:14px;">政治</a>
   <a href="#general" style="margin:0 12px; color:#c5a059; font-weight:bold; text-decoration:none; font-size:14px;">综合</a>
 </nav>
 '''
 
-    china_html = ''
     tech_html = ''
     finance_html = ''
-    us_html = ''
-    inter_html = ''
-    gene_html = ''
+    politics_html = ''
+    general_html = ''
 
     for n in data:
         item = f'''
@@ -163,18 +166,14 @@ def make_html(data):
   <a href="{n['l']}" target="_blank" style="color: #111; font-size: 18px; line-height: 1.5; font-weight: 500; text-decoration: none;">{n['t']}</a>
 </div>
 '''
-        if n['g'] == '国内':
-            china_html += item
-        elif n['g'] == '科技':
+        if n['g'] == '科技':
             tech_html += item
         elif n['g'] == '金融':
             finance_html += item
-        elif n['g'] == '美国':
-            us_html += item
-        elif n['g'] == '国际':
-            inter_html += item
+        elif n['g'] == '政治':
+            politics_html += item
         else:
-            gene_html += item
+            general_html += item
 
     html = f'''<!DOCTYPE html>
 <html>
@@ -190,46 +189,37 @@ def make_html(data):
 }}
 </style>
 </head>
-<body style="max-width: 800px; margin: auto; padding: 40px 20px; font-family: 'Microsoft YaHei', sans-serif; background: #fdfdfd; color: #111;">
-<header style="text-align: center; margin-bottom: 50px; border-bottom: 4px double #eee; padding-bottom: 20px;">
+<body style="max-width: 800px; margin: auto; padding: 0 0 40px; font-family: 'Microsoft YaHei', sans-serif; background: #fdfdfd; color: #111;">
+{ticker}
+<header style="text-align: center; margin:30px 20px 50px; border-bottom: 4px double #eee; padding-bottom: 20px;">
   <h1 style="font-size: 36px; margin: 0; color: #222;">每日新闻简报</h1>
   <div style="color: #999; font-size: 12px; margin-top: 10px;">更新时间：{time_str}</div>
 </header>
 {nav}
-<main>
-<section id="china">
-<h2 class="category-title">国内新闻</h2>
-{china_html if china_html else '<div style="color:#999; padding:20px;">暂无国内新闻</div>'}
-</section>
-
+<main style="padding:0 20px;">
 <section id="tech">
-<h2 class="category-title">科技新闻</h2>
+<h2 class="category-title">科技</h2>
 {tech_html if tech_html else '<div style="color:#999; padding:20px;">暂无科技新闻</div>'}
 </section>
 
 <section id="finance">
-<h2 class="category-title">金融新闻</h2>
+<h2 class="category-title">金融</h2>
 {finance_html if finance_html else '<div style="color:#999; padding:20px;">暂无金融新闻</div>'}
 </section>
 
-<section id="us">
-<h2 class="category-title">美国新闻</h2>
-{us_html if us_html else '<div style="color:#999; padding:20px;">暂无美国新闻</div>'}
-</section>
-
-<section id="international">
-<h2 class="category-title">国际新闻</h2>
-{inter_html if inter_html else '<div style="color:#999; padding:20px;">暂无国际新闻</div>'}
+<section id="politics">
+<h2 class="category-title">政治</h2>
+{politics_html if politics_html else '<div style="color:#999; padding:20px;">暂无政治新闻</div>'}
 </section>
 
 <section id="general">
-<h2 class="category-title">综合新闻</h2>
-{gene_html if gene_html else '<div style="color:#999; padding:20px;">暂无综合新闻</div>'}
+<h2 class="category-title">综合</h2>
+{general_html if general_html else '<div style="color:#999; padding:20px;">暂无综合新闻</div>'}
 </section>
 
 </main>
 <footer style="text-align: center; margin-top: 80px; color: #ccc; font-size: 12px; padding: 20px;">
-每小时自动更新 · 简报主页
+每小时自动更新
 </footer>
 </body>
 </html>'''
