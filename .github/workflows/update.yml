@@ -1,28 +1,42 @@
 name: Update News
+
 on:
   schedule:
+    # 每天北京时间早上 8:00 自动运行 (UTC 0:00)
     - cron: '0 0 * * *'
+  # 允许在 GitHub 页面手动点击运行
   workflow_dispatch:
+
 jobs:
   build:
     runs-on: ubuntu-latest
-    # 这一段是关键：允许脚本把生成的网页推送到仓库
+    
+    # 核心权限设置：允许脚本修改仓库文件并发布网页
     permissions:
       contents: write
+
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
+
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.9'
+
       - name: Install dependencies
-        run: pip install requests
-      - name: Run update
-        run: python update_news.py
-      - name: Deploy
         run: |
-          git config --local user.name "GitHub Action"
+          python -m pip install --upgrade pip
+          pip install requests feedparser
+
+      - name: Run news update script
+        run: python update_news.py
+
+      - name: Commit and Push changes
+        run: |
           git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          # 检查文件是否有变化，如果有则提交
           git add index.html
-          git commit -m "Update news page" || exit 0
+          git commit -m "Update Daily News Board" || exit 0
           git push
