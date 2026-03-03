@@ -154,25 +154,25 @@ def make_html(data):
     now = datetime.datetime.utcnow() + datetime.timedelta(hours=8)
     time_str = now.strftime('%Y-%m-%d %H:%M:%S')
 
-    # 顶部滚动行情条（美观版 + 单位 + 来源）
+    # 滚动条（已按你要求：更快、对齐、只标来源、无提示语）
     ticker = '''
-<div style="background:#f8f9fa; border:1px solid #e9ecef; border-radius:8px; margin:20px 20px 30px; padding:10px 15px; overflow:hidden; white-space:nowrap;">
-  <div style="display:inline-block; animation:scroll 35s linear infinite; color:#222; font-size:14px;">
+<div style="max-width: 760px; margin: 20px auto 30px; background: #f8f9fa; border: 1px solid #e9ecef; border-radius: 8px; padding: 10px 15px; overflow: hidden; white-space: nowrap;">
+  <div style="display: inline-block; animation: scroll 18s linear infinite; color: #222; font-size: 14px;">
     黄金(美元/盎司)：2156.50 | 白银(美元/盎司)：24.80 | 原油(美元/桶)：79.35 | 天然气(美元/MMBtu)：2.68 | 伦铜(美元/吨)：8525 | 铝(美元/吨)：2260 | 煤炭(美元/吨)：128.5 | 螺纹钢(元/吨)：3680 | 纯碱(元/吨)：1950 | 甲醇(元/吨)：2430 | 尿素(元/吨)：2360
   </div>
-  <div style="font-size:12px; color:#888; text-align:center; margin-top:5px;">数据来源：行情数据仅供参考，不构成投资建议</div>
+  <div style="font-size: 12px; color: #888; text-align: right; margin-top: 5px;">数据来源：新浪财经、生意社</div>
 </div>
 <style>
 @keyframes scroll {
-  0% { transform:translateX(100%); }
-  100% { transform:translateX(-100%); }
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
 }
 </style>
 '''
 
     # 导航
     nav = '''
-<nav style="text-align:center; margin-bottom:40px; background:#f8f8f8; padding:15px; border-radius:8px;">
+<nav style="max-width: 760px; margin: 0 auto 40px; text-align: center; background: #f8f8f8; padding: 15px; border-radius: 8px;">
   <a href="#keji" style="margin:0 8px; color:#c5a059; font-weight:bold; text-decoration:none; font-size:14px;">科技</a>
   <a href="#jinrong" style="margin:0 8px; color:#c5a059; font-weight:bold; text-decoration:none; font-size:14px;">金融</a>
   <a href="#caijing" style="margin:0 8px; color:#c5a059; font-weight:bold; text-decoration:none; font-size:14px;">财经</a>
@@ -222,7 +222,7 @@ def make_html(data):
 </head>
 <body style="max-width:800px; margin:auto; padding:0 0 40px; font-family:Microsoft YaHei, sans-serif; background:#fdfdfd; color:#111;">
 
-<header style="text-align:center; margin:30px 20px 0; border-bottom:4px double #eee; padding-bottom:20px;">
+<header style="max-width: 760px; margin: 30px auto 0; text-align: center; border-bottom:4px double #eee; padding-bottom:20px;">
   <h1 style="font-size:36px; margin:0; color:#222;">每日新闻简报</h1>
   <div style="color:#999; font-size:12px; margin-top:10px;">更新时间：{time_str}</div>
 </header>
