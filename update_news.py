@@ -1,11 +1,9 @@
 import feedparser
 import datetime
 import ssl
-import time
-import schedule
 from urllib.parse import urlparse
 
-# 解决 SSL 证书问题
+# 解决 SSL 问题
 if hasattr(ssl, '_create_unverified_context'):
     ssl._create_default_https_context = ssl._create_unverified_context
 
@@ -51,7 +49,6 @@ def get_source_name(url):
 
 def get_real_news():
     sources = [
-        # 中文
         "https://www.zaobao.com/rss/cs.html",
         "https://feeds.appinn.com/appinn/",
         "https://www.solidot.org/index.rss",
@@ -60,8 +57,6 @@ def get_real_news():
         "https://www.chinanews.com.com/rss/scroll-news.xml",
         "https://tech.sina.com.cn/rss/it.xml",
         "https://finance.sina.com.cn/rss/finance.xml",
-        
-        # 英文国际
         "https://feeds.bbci.co.uk/news/rss.xml",
         "https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml",
         "https://feeds.washingtonpost.com/rss/national",
@@ -106,7 +101,6 @@ def get_real_news():
         except Exception:
             continue
 
-    # 兜底
     if not news_list:
         try:
             r = feedparser.parse("https://news.google.com/rss?hl=zh-CN&gl=CN&ceid=CN:zh-Hans")
@@ -116,7 +110,6 @@ def get_real_news():
         except Exception:
             news_list = [{"t": "全球资讯同步中，请稍后...", "l": "#", "g": "系统", "s": "系统"}]
 
-    # 排序：科技、金融优先
     priority_order = {"科技": 0, "金融": 1, "综合": 2, "国际": 3, "政治": 4, "实时": 5, "系统": 6}
     news_list.sort(key=lambda x: priority_order.get(x["g"], 99))
 
@@ -129,44 +122,36 @@ def make_html(data):
     items_html = ""
     for n in data:
         items_html += f'''
-        <div style="margin-bottom:30px; border-bottom:1px solid #f2f2f2; padding-bottom:15px;">
-            <div style="font-size:11px; color:#c5a059; font-weight:bold; margin-bottom:8px; letter-spacing:1px;">
-                [{n['g']}] • {n['s']}
-            </div>
-            <a href="{n['l']}" target="_blank" style="color:#111; font-size:20px; line-height:1.5; font-weight:500; text-decoration:none;">{n['t']}</a>
-        </div>'''
+<div style="margin-bottom:30px; border-bottom:1px solid #f2f2f2; padding-bottom:15px;">
+<div style="font-size:11px; color:#c5a059; font-weight:bold; margin-bottom:8px; letter-spacing:1px;">
+[{n['g']}] • {n['s']}
+</div>
+<a href="{n['l']}" target="_blank" style="color:#111; font-size:20px; line-height:1.5; font-weight:500; text-decoration:none;">{n['t']}</a>
+</div>'''
 
-    full_html = f'''
-    <!DOCTYPE html>
-    <html>
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width,initial-scale=1.0">
-        <title>Global Briefing</title>
-    </head>
-    <body style="max-width:750px; margin:auto; padding:60px 20px; font-family:'Georgia', serif; background:#fdfdfd; color:#111;">
-        <header style="text-align:center; margin-bottom:60px; border-bottom:4px double #eee; padding-bottom:20px;">
-            <h1 style="font-size:40px; margin:0; letter-spacing:-1px;">THE GLOBAL BRIEFING</h1>
-            <div style="color:#999; font-size:12px; margin-top:10px; letter-spacing:2px;">UPDATE: {time_str} BEIJING</div>
-        </header>
-        <main>{items_html}</main>
-        <footer style="text-align:center; margin-top:100px; color:#ddd; font-size:10px; border-top:1px solid #eee; padding-top:40px;">© 2026 GLOBAL NEWS TERMINAL</footer>
-    </body>
-    </html>'''
+    full_html = f'''<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Global Briefing</title>
+</head>
+<body style="max-width:750px; margin:auto; padding:60px 20px; font-family:'Georgia', serif; background:#fdfdfd; color:#111;">
+<header style="text-align:center; margin-bottom:60px; border-bottom:4px double #eee; padding-bottom:20px;">
+<h1 style="font-size:40px; margin:0; letter-spacing:-1px;">THE GLOBAL BRIEFING</h1>
+<div style="color:#999; font-size:12px; margin-top:10px; letter-spacing:2px;">UPDATE: {time_str} BEIJING</div>
+</header>
+<main>{items_html}</main>
+<footer style="text-align:center; margin-top:100px; color:#ddd; font-size:10px; border-top:1px solid #eee; padding-top:40px;">© 2026 GLOBAL NEWS</footer>
+</body>
+</html>'''
 
     with open("index.html", "w", encoding="utf-8") as f:
         f.write(full_html)
 
     print(f"✅ 新闻已更新：{time_str}")
 
-def job():
-    news = get_real_news()
-    make_html(news)
-
+# 只执行一次，适合 GitHub Actions
 if __name__ == "__main__":
-    job()
-    schedule.every(1).hours.do(job)
-    print("⏰ 已启动每小时定时更新，按 Ctrl+C 停止")
-    while True:
-        schedule.run_pending()
-        time.sleep(60)
+    news = get_real_news()
+    make_html()
