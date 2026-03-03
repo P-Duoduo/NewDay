@@ -1,62 +1,72 @@
 import requests
 import datetime
-
-import xml.etree.ElementTree as ET
+import re
 
 def get_real_news():
-    # 使用 Google News 全球财经/科技 RSS 源（稳定性最高）
-    # ceid=CN:zh 确保获取的是中文资讯
-    url = "https://news.google.com"
+    # 备选源列表：1.路透社 2.华尔街日报 3.联合早报 (均为镜像接口以确保稳定性)
+    urls = [
+        "https://rsshub.app",
+        "https://rsshub.app",
+        "https://rsshub.rssforever.com"
+    ]
     
     news_list = []
-    try:
-        # 添加浏览器 User-Agent 伪装，防止被拦截
-        headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'}
-        response = requests.get(url, headers=headers, timeout=15)
-        
-        # 解析 RSS (XML 格式)
-        root = ET.fromstring(response.content)
-        for item in root.findall('.//item')[:10]: # 取前 10 条
-            title = item.find('title').text
-            pub_date = item.find('pubDate').text
-            
-            # 简单分类逻辑
-            tag = "财经"
-            if any(k in title for k in ["AI", "智能", "芯片", "科技"]): tag = "AI科技"
-            elif any(k in title for k in ["美", "俄", "国际", "局势"]): tag = "国际"
-            
-            # 处理标题（去除来源后缀）
-            clean_title = title.split(' - ')[0]
-            
-            news_list.append({
-                "desc": clean_title, 
-                "tag": tag, 
-                "time": pub_date.split(' ')[4][:5] # 提取 HH:mm
-            })
-    except Exception as e:
-        news_list = [{"desc": f"系统正在自动修复中，请稍后再次手动运行。(Error: {str(e)})", "tag": "系统", "time": "09:00"}]
-    
+    headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'}
+
+    for url in urls:
+        try:
+            response = requests.get(url, headers=headers, timeout=20)
+            if response.status_code == 200:
+                # 使用正则表达式提取标题和链接，这种方式最稳，不会报 XML 解析错误
+                titles = re.findall(r'<title><!\[CDATA\[(.*?)\]\]></title>', response.text)
+                links = re.findall(r'<link>(.*?)</link>', response.text)
+                
+                # 如果 CDATA 提取失败，尝试普通标签提取
+                if not titles:
+                    titles = re.findall(r'<title>(.*?)</title>', response.text)
+                
+                # 过滤掉频道标题（通常是第一个）
+                for i in range(1, min(len(titles), 12)):
+                    t = titles[i].strip()
+                    l = links[i].strip() if i < len(links) else "#"
+                    
+                    # 智能分类
+                    tag = "国际"
+                    if any(k in t for k in ["AI", "芯片", "科技", "智能", "机器人"]): tag = "AI科技"
+                    elif any(k in t for k in ["股", "经", "汇", "财", "金", "银行"]): tag = "财经"
+                    
+                    news_list.append({"title": t, "link": l, "tag": tag})
+                
+                if news_list: break # 只要有一个源成功抓到数据，就停止循环
+        except Exception as e:
+            print(f"尝试源 {url} 失败: {e}")
+            continue
+
+    if not news_list:
+        news_list = [{"title": "全球资讯同步中，请稍后手动刷新 Action 运行...", "link": "#", "tag": "系统"}]
     return news_list
 
-
-
 def generate_html(data):
-    now_date = (datetime.datetime.now() + datetime.timedelta(hours=8)).strftime('%Y年%m月%d日')
-    now_time = (datetime.datetime.now() + datetime.timedelta(hours=8)).strftime('%H:%M')
+    # 处理北京时间
+    now = datetime.datetime.now() + datetime.timedelta(hours=8)
+    date_str = now.strftime('%Y年%m月%d日')
+    time_str = now.strftime('%H:%M')
     
     items_html = ""
     for n in data:
         tag_color = "#1a73e8" if n['tag'] == "AI科技" else "#c5a059" if n['tag'] == "财经" else "#5f6368"
         items_html += f"""
-        <div class="news-card">
-            <div class="meta">
-                <span class="tag" style="background: {tag_color}15; color: {tag_color}; border: 1px solid {tag_color}30;">{n['tag']}</span>
-                <span class="time">{n['time']}</span>
+        <a href="{n['link']}" target="_blank" class="news-card-link">
+            <div class="news-card">
+                <div class="meta">
+                    <span class="tag" style="background: {tag_color}15; color: {tag_color}; border: 1px solid {tag_color}30;">{n['tag']}</span>
+                    <span class="arrow">READ MORE →</span>
+                </div>
+                <div class="content">{n['title']}</div>
             </div>
-            <div class="content">{n['desc']}</div>
-        </div>"""
+        </a>"""
 
-    html = f"""
+    html_template = f"""
     <!DOCTYPE html>
     <html lang="zh-CN">
     <head>
@@ -65,36 +75,38 @@ def generate_html(data):
         <title>The Global Briefing</title>
         <style>
             :root {{ --primary: #1a1a1a; --accent: #c5a059; --bg: #fdfdfd; }}
-            body {{ background: var(--bg); color: var(--primary); font-family: "PingFang SC", "Hiragino Sans GB", serif; margin: 0; line-height: 1.6; }}
+            body {{ background: var(--bg); color: var(--primary); font-family: "Georgia", "PingFang SC", serif; margin: 0; line-height: 1.6; }}
             .header {{ text-align: center; padding: 60px 20px 40px; border-bottom: 3px double #ddd; max-width: 800px; margin: 0 auto; }}
-            .header h1 {{ font-family: "Georgia", serif; font-size: 42px; margin: 0; letter-spacing: -1px; text-transform: uppercase; }}
-            .header .date {{ color: #888; font-size: 14px; margin-top: 10px; text-transform: uppercase; letter-spacing: 2px; }}
-            .container {{ max-width: 800px; margin: 40px auto; padding: 0 20px; }}
-            .news-card {{ margin-bottom: 40px; transition: 0.3s; position: relative; }}
-            .meta {{ display: flex; align-items: center; margin-bottom: 12px; font-size: 12px; font-weight: bold; }}
-            .tag {{ padding: 2px 8px; border-radius: 2px; margin-right: 12px; }}
-            .time {{ color: #999; }}
-            .content {{ font-size: 18px; color: #333; text-align: justify; border-left: 1px solid #eee; padding-left: 20px; }}
-            .footer {{ text-align: center; padding: 40px; font-size: 12px; color: #bbb; border-top: 1px solid #eee; }}
-            @media (max-width: 600px) {{ .header h1 {{ font-size: 30px; }} .content {{ font-size: 16px; }} }}
+            .header h1 {{ font-size: 42px; margin: 0; letter-spacing: -1px; text-transform: uppercase; font-weight: 900; }}
+            .header .date {{ color: #888; font-size: 13px; margin-top: 10px; text-transform: uppercase; letter-spacing: 2px; font-family: sans-serif; }}
+            .container {{ max-width: 800px; margin: 40px auto; padding: 0 20px; min-height: 600px; }}
+            .news-card-link {{ text-decoration: none; color: inherit; display: block; }}
+            .news-card {{ margin-bottom: 35px; padding-bottom: 25px; border-bottom: 1px solid #eee; transition: 0.2s; }}
+            .news-card:hover {{ opacity: 0.7; }}
+            .meta {{ display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; font-size: 11px; font-family: sans-serif; font-weight: bold; }}
+            .tag {{ padding: 2px 8px; border-radius: 2px; }}
+            .arrow {{ color: #bbb; letter-spacing: 1px; }}
+            .content {{ font-size: 20px; color: #111; text-align: justify; font-weight: 500; line-height: 1.4; }}
+            .footer {{ text-align: center; padding: 60px 40px; font-size: 11px; color: #bbb; border-top: 1px solid #eee; letter-spacing: 1px; }}
+            @media (max-width: 600px) {{ .header h1 {{ font-size: 28px; }} .content {{ font-size: 17px; }} }}
         </style>
     </head>
     <body>
         <div class="header">
             <h1>THE GLOBAL BRIEFING</h1>
-            <div class="date">{now_date} · 发送于北京 {now_time}</div>
+            <div class="date">{date_str} · UPDATE AT {time_str} BEIJING</div>
         </div>
         <div class="container">
             {items_html}
         </div>
         <div class="footer">
-            © 2026 Powered by Gemini AI Intelligence · 实时数据来源于权威财经接口
+            © 2026 POWERED BY GEMINI AI · DATA FROM WORLDWIDE FINANCIAL TERMINALS
         </div>
     </body>
     </html>"""
     
-    with open("index.html", "w", encoding="utf-8") as f:
-        f.write(html)
+    with open("index.html", "w", "utf-8") as f:
+        f.write(html_template)
 
 if __name__ == "__main__":
     generate_html(get_real_news())
