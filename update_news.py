@@ -105,7 +105,7 @@ def generate_html(data):
     </body>
     </html>"""
     
-    with open("index.html", "w", "utf-8") as f:
+    with open("index.html", "w", encoding="utf-8") as f:
         f.write(html_template)
 
 if __name__ == "__main__":
