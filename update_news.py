@@ -151,7 +151,6 @@ def make_html(data):
 
     print(f"✅ 新闻已更新：{time_str}")
 
-# 只执行一次，适合 GitHub Actions
 if __name__ == "__main__":
     news = get_real_news()
-    make_html()
+    make_html(news)  # 把抓取到的新闻数据传进去
